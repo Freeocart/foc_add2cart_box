@@ -27,19 +27,6 @@
 
   <file path="catalog/view/theme/*/template/product/product.tpl">
     <operation>
-      <search><![CDATA[<?php echo $header; ?>]]></search>
-      <add position="after"><![CDATA[
-        <script>
-        $(function () {
-          $(document).on('click', '.popup-modal-dismiss', function (e) {
-            e.preventDefault();
-            $.magnificPopup.close();
-          });
-        });
-        </script>
-      ]]></add>
-    </operation>
-    <operation>
       <search><![CDATA[$('html, body').animate({ scrollTop: 0 }, 'slow');]]></search>
       <add position="replace"><![CDATA[
         $.magnificPopup.open({
@@ -71,6 +58,14 @@
           <h1><?php echo $foc_add2cart_box_title; ?></h1>
           <?php echo $foc_add2cart_box_content; ?>
         </div>
+        <script>
+        $(function () {
+          $(document).on('click', '.popup-modal-dismiss', function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+          });
+        });
+        </script>
       <?php endif; ?>
       ]]></add>
     </operation>
