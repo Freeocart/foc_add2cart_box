@@ -65,4 +65,8 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
     return $this->processTemplate('content', $data);
   }
 
+  public function getAutocloseTime () {
+    return $this->getByKey('autoclose_time');
+  }
+
 }
