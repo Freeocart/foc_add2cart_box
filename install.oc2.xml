@@ -74,7 +74,8 @@
               items: {
                 type:'inline',
                 src:'#foc_add2cart_box'
-              }
+              },
+              removalDelay: 500
             });
             <?php if (is_numeric($foc_add2cart_box_autoclose_time) && $foc_add2cart_box_autoclose_time > 0) : ?>
               setTimeout($.magnificPopup.close, <?php echo $foc_add2cart_box_autoclose_time * 1000; ?>);
