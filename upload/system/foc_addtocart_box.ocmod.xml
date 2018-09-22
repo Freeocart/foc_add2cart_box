@@ -6,14 +6,28 @@
   <author>ikenfin</author>
   <link>http://freeocart.ru</link>
 
-  <file path="catalog/controller/common/footer.php">
+  <!-- <file path="catalog/controller/common/footer.php"> -->
+  <file path="catalog/controller/common/header.php">
     <operation>
-      <search><![CDATA[public function index() {]]></search>
-      <add position="after"><![CDATA[
+      <!-- <search><![CDATA[public function index() {]]></search> -->
+      <search><![CDATA[return $this->load->view('common/header', $data);]]></search>
+      <add position="before"><![CDATA[
+        /* foc_add2cart_box code */
         $this->load->model('extension/module/foc_add2cart_box');
+
         $foc_add2cart_box_urls = array(
-          'checkout' => $this->url->link('checkout/cart'),
-          'home' => $this->url->link('common/home')
+          'site_name' => $this->config->get('config_name'),
+          'site_logo' => $data['logo'],
+          'site_phone' => $this->config->get('config_telephone'),
+          'url_cart' => $this->url->link('checkout/cart'),
+          'url_checkout' => $this->url->link('checkout/checkout'),
+          'url_history' => $this->url->link('account/order'),
+          'url_wishlist' => $this->url->link('account/wishlist'),
+          'url_voucher' => $this->url->link('account/voucher'),
+          'url_contact' => $this->url->link('information/contact'),
+          'url_manufacturer' => $this->url->link('product/manufacturer'),
+          'url_specials' => $this->url->link('product/special'),
+          'url_home' => $this->url->link('common/home')
         );
 
         $data['foc_add2cart_box_title'] = $this->model_extension_module_foc_add2cart_box->getModalTitle($foc_add2cart_box_urls);
@@ -21,6 +35,10 @@
 
         $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
         $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
+
+        $data['styles'] = $this->document->getStyles();
+        $data['scripts'] = $this->document->getScripts();
+        /* end foc_add2cart_box code */
       ]]></add>
     </operation>
   </file>
@@ -39,10 +57,10 @@
     </operation>
   </file>
 
-  <file path="catalog/view/theme/*/template/common/footer.tpl">
+  <file path="catalog/view/theme/*/template/common/header.tpl">
     <operation>
-      <search><![CDATA[</body>]]></search>
-      <add position="before"><![CDATA[
+      <search><![CDATA[<body]]></search>
+      <add position="after"><![CDATA[
       <?php if (isset($foc_add2cart_box_title) && $foc_add2cart_box_title) : ?>
         <style>
           .white-popup {
@@ -69,9 +87,7 @@
       <?php endif; ?>
       ]]></add>
     </operation>
-  </file>
 
-  <file path="catalog/view/theme/*/template/common/header.tpl">
     <operation>
       <search><![CDATA[</head>]]></search>
       <add position="before"><![CDATA[
