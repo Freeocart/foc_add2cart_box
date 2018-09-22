@@ -5,9 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "gulp",
-    "pack": "bash pack.sh",
     "test": "gulp test",
-    "build": "bash pack.sh"
+    "build": "gulp build-all"
   },
   "dependencies": {
     "gulp": "^3.9.1",
