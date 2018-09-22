@@ -68,7 +68,6 @@ class ControllerExtensionModuleFocAdd2cartBox extends Controller {
 				$this->model_extension_module_foc_add2cart_box->saveSettings($data['fa2cb_settings']);
 
 				$this->response->redirect($this->createUrl('extension/module/foc_add2cart_box/index'));
-				// $this->response->redirect($this->url->link('extension/module/foc_add2cart_box/index', 'token=' . $this->session->data['token'], 'SSL'));
 			}
 		}
 
@@ -79,7 +78,11 @@ class ControllerExtensionModuleFocAdd2cartBox extends Controller {
     foreach ($validKeys as $key) {
 			$data['labels'][$key] = $this->language->get('label_' . $key);
 			$data['tooltips'][$key] = $this->language->get('tooltip_' . $key);
-    }
+		}
+
+		$data['labels']['foc_add2cart_box_info_tab_name'] = $this->language->get('foc_add2cart_box_info_tab_name');
+		$data['labels']['foc_add2cart_box_info_tab_title'] = $this->language->get('foc_add2cart_box_info_tab_title');
+		$data['labels']['foc_add2cart_box_info_tab_content'] = $this->language->get('foc_add2cart_box_info_tab_content');
 
 		return $this->response->setOutput($this->load->view('extension/module/foc_add2cart_box', $data));
 	}

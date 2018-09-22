@@ -33,6 +33,11 @@
               <a href="#language{{ language['language_id'] }}" data-toggle="tab"><img src="language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}" /> {{ language['name'] }}</a>
             </li>
             {% endfor %}
+            <li>
+              <a href="#tab-info" data-toggle="tab">
+                <i class="fa fa-info-circle"></i> {{ labels['foc_add2cart_box_info_tab_name'] }}
+              </a>
+            </li>
           </ul>
 
           <div class="tab-content">
@@ -75,6 +80,14 @@
               </div>
             </div>
             {% endfor %}
+
+            <div id="tab-info" class="tab-pane">
+              <h3>{{ labels['foc_add2cart_box_info_tab_title'] }}</h3>
+              <hr>
+              <div>
+                {{ labels['foc_add2cart_box_info_tab_content'] }}
+              </div>
+            </div>
           </div>
 
         </form>

@@ -35,6 +35,11 @@
               <a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a>
             </li>
             <?php endforeach; ?>
+            <li>
+              <a href="#tab-info" data-toggle="tab">
+                <i class="fa fa-info-circle"></i> <?php echo $labels['foc_add2cart_box_info_tab_name']; ?>
+              </a>
+            </li>
           </ul>
 
           <div class="tab-content">
@@ -77,8 +82,15 @@
               </div>
             </div>
             <?php endforeach; ?>
-          </div>
 
+            <div id="tab-info" class="tab-pane">
+              <h3><?php echo $labels['foc_add2cart_box_info_tab_title']; ?></h3>
+              <hr>
+              <div>
+                <?php echo $labels['foc_add2cart_box_info_tab_content']; ?>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
