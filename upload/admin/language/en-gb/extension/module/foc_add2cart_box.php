@@ -7,5 +7,6 @@ $_['label_foc_add2cart_box_title'] = 'Modal title';
 $_['label_foc_add2cart_box_content'] = 'Modal content';
 $_['label_foc_add2cart_box_continue_label'] = 'Continue button text';
 $_['label_foc_add2cart_box_continue_css_class'] = 'Continue button css classes';
+$_['label_foc_add2cart_box_autoclose_time'] = 'Autoclose modal timeout (0 - disabled)';
 
 $_['tooltip_foc_add2cart_box_content'] = 'Tooltip {{ continue_btn }} - continue button';

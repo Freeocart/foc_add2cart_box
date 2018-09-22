@@ -7,5 +7,6 @@ $_['label_foc_add2cart_box_title'] = 'Заголовок модального о
 $_['label_foc_add2cart_box_content'] = 'Контент модального окна';
 $_['label_foc_add2cart_box_continue_label'] = 'Текст кнопки закрытия';
 $_['label_foc_add2cart_box_continue_css_class'] = 'Css классы кнопки закрытия';
+$_['label_foc_add2cart_box_autoclose_time'] = 'Время автозакрытия (0 - выключено)';
 
 $_['tooltip_foc_add2cart_box_content'] = 'Тултип';

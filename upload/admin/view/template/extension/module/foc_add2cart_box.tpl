@@ -68,6 +68,13 @@
                   <input name="foc_add2cart_box[<?php echo $language['language_id']; ?>][foc_add2cart_box_continue_css_class]" type="text" class="form-control" value="<?php echo $fa2cb_settings[$language['language_id']]['foc_add2cart_box_continue_css_class']; ?>">
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2"><?php echo $labels['foc_add2cart_box_autoclose_time']; ?></label>
+                <div class="col-sm-10">
+                  <input name="foc_add2cart_box[<?php echo $language['language_id']; ?>][foc_add2cart_box_autoclose_time]" type="text" class="form-control" value="<?php echo $fa2cb_settings[$language['language_id']]['foc_add2cart_box_autoclose_time']; ?>">
+                </div>
+              </div>
             </div>
             <?php endforeach; ?>
           </div>
