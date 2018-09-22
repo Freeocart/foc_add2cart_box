@@ -54,6 +54,20 @@
                   <textarea name="foc_add2cart_box[<?php echo $language['language_id']; ?>][foc_add2cart_box_content]" rows="3" class="form-control summernote"><?php echo $fa2cb_settings[$language['language_id']]['foc_add2cart_box_content']; ?></textarea>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2"><?php echo $labels['foc_add2cart_box_continue_label']; ?></label>
+                <div class="col-sm-10">
+                  <input name="foc_add2cart_box[<?php echo $language['language_id']; ?>][foc_add2cart_box_continue_label]" type="text" class="form-control" value="<?php echo $fa2cb_settings[$language['language_id']]['foc_add2cart_box_continue_label']; ?>">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2"><?php echo $labels['foc_add2cart_box_continue_css_class']; ?></label>
+                <div class="col-sm-10">
+                  <input name="foc_add2cart_box[<?php echo $language['language_id']; ?>][foc_add2cart_box_continue_css_class]" type="text" class="form-control" value="<?php echo $fa2cb_settings[$language['language_id']]['foc_add2cart_box_continue_css_class']; ?>">
+                </div>
+              </div>
             </div>
             <?php endforeach; ?>
           </div>

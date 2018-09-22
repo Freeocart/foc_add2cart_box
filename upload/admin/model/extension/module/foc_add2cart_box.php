@@ -12,7 +12,9 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
   public function defaultSettingsItem () {
     return array(
       self::SETTINGS_GROUP . '_title' => '',
-      self::SETTINGS_GROUP . '_content' => ''
+      self::SETTINGS_GROUP . '_content' => '',
+      self::SETTINGS_GROUP . '_continue_label' => '',
+      self::SETTINGS_GROUP . '_continue_css_class' => ''
     );
   }
 
