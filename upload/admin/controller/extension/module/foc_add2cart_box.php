@@ -16,6 +16,24 @@ class ControllerExtensionModuleFocAdd2cartBox extends Controller {
 		$this->model_extension_module_foc_add2cart_box->uninstall();
 	}
 
+  private function isOpencart3 () {
+    $version_chars = explode('.', VERSION);
+    return (int)$version_chars[0] === 3;
+  }
+
+  private function getTokenParam () {
+    if (isset($this->session->data['user_token'])) {
+      return 'user_token=' . $this->session->data['user_token'];
+    }
+    else {
+      return 'token=' . $this->session->data['token'];
+    }
+  }
+
+  private function createUrl ($url) {
+    return $this->url->link($url, $this->getTokenParam(), 'SSL');
+  }
+
 	public function index () {
 		$this->language->load('extension/module/foc_add2cart_box');
 		$this->load->model('localisation/language');
@@ -49,7 +67,8 @@ class ControllerExtensionModuleFocAdd2cartBox extends Controller {
 
 				$this->model_extension_module_foc_add2cart_box->saveSettings($data['fa2cb_settings']);
 
-				$this->response->redirect($this->url->link('extension/module/foc_add2cart_box/index', 'token=' . $this->session->data['token'], 'SSL'));
+				$this->response->redirect($this->createUrl('extension/module/foc_add2cart_box/index'));
+				// $this->response->redirect($this->url->link('extension/module/foc_add2cart_box/index', 'token=' . $this->session->data['token'], 'SSL'));
 			}
 		}
 
@@ -70,17 +89,17 @@ class ControllerExtensionModuleFocAdd2cartBox extends Controller {
 
     $breadcrumbs[] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+			'href'      => $this->createUrl('common/home'),
 			'separator' => false
     );
     $breadcrumbs[] = array(
       'text'      => $this->language->get('text_extension'),
-      'href'      => $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL'),
+      'href'      => $this->createUrl('extension/extension'),
       'separator' => ' :: '
     );
 		$breadcrumbs[] = array(
 			'text'      => $this->language->get('heading_title'),
-			'href'      => $this->url->link('extension/module/foc_add2cart_box', 'token=' . $this->session->data['token'], 'SSL'),
+			'href'      => $this->createUrl('extension/module/foc_add2cart_box'),
 			'separator' => ' :: '
     );
 
