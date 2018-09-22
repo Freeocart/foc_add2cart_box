@@ -6,5 +6,127 @@
   <author>ikenfin</author>
   <link>http://freeocart.ru</link>
 
+  <file path="catalog/controller/common/footer.php">
+    <operation>
+      <search><![CDATA[public function index() {]]></search>
+      <add position="after"><![CDATA[
+        $this->load->model('extension/module/foc_add2cart_box');
+        $foc_add2cart_box_urls = array(
+          'checkout' => $this->url->link('checkout/cart'),
+          'home' => $this->url->link('common/home')
+        );
 
+        $data['foc_add2cart_box_title'] = $this->model_extension_module_foc_add2cart_box->getModalTitle($foc_add2cart_box_urls);
+        $data['foc_add2cart_box_content'] = $this->model_extension_module_foc_add2cart_box->getModalContent($foc_add2cart_box_urls);
+
+        $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+        $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="catalog/view/theme/*/template/product/product.tpl">
+    <operation>
+      <search><![CDATA[<?php echo $header; ?>]]></search>
+      <add position="after"><![CDATA[
+        <script>
+        $(function () {
+          $(document).on('click', '.popup-modal-dismiss', function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+          });
+        });
+        </script>
+      ]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[$('html, body').animate({ scrollTop: 0 }, 'slow');]]></search>
+      <add position="replace"><![CDATA[
+        $.magnificPopup.open({
+					items: {
+						type:'inline',
+						src:'#foc_add2cart_box'
+					}
+				});
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="catalog/view/theme/*/template/common/footer.tpl">
+    <operation>
+      <search><![CDATA[</body>]]></search>
+      <add position="before"><![CDATA[
+      <?php if (isset($foc_add2cart_box_title) && $foc_add2cart_box_title) : ?>
+        <style>
+          .white-popup {
+            position: relative;
+            background: #FFF;
+            padding: 20px;
+            width:auto;
+            max-width: 500px;
+            margin: 20px auto;
+          }
+        </style>
+        <div id="foc_add2cart_box" class="white-popup mfp-hide">
+          <h1><?php echo $foc_add2cart_box_title; ?></h1>
+          <?php echo $foc_add2cart_box_content; ?>
+        </div>
+      <?php endif; ?>
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="catalog/view/theme/*/template/common/header.tpl">
+    <operation>
+      <search><![CDATA[</head>]]></search>
+      <add position="before"><![CDATA[
+      <script>
+      window.cart.add = function (product_id, quantity) {
+        $.ajax({
+          url: 'index.php?route=checkout/cart/add',
+          type: 'post',
+          data: 'product_id=' + product_id + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
+          dataType: 'json',
+          beforeSend: function() {
+            $('#cart > button').button('loading');
+          },
+          complete: function() {
+            $('#cart > button').button('reset');
+          },
+          success: function(json) {
+            $('.alert, .text-danger').remove();
+
+            if (json['redirect']) {
+              location = json['redirect'];
+            }
+
+            if (json['success']) {
+              $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+              // Need to set timeout otherwise it wont update the total
+              setTimeout(function () {
+                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+                $('#total').text(parseInt(json['total']));
+              }, 100);
+
+              //$('html, body').animate({ scrollTop: 0 }, 'slow');
+              $.magnificPopup.open({
+                items: {
+                  type:'inline',
+                  src:'#foc_add2cart_box'
+                }
+              });
+
+              $('#cart > ul').load('index.php?route=common/cart/info ul li');
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+      </script>
+      ]]></add>
+    </operation>
+  </file>
 </modification>

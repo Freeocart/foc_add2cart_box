@@ -32,7 +32,6 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
     if (!$this->__settings_loaded) {
       $this->getSettings();
     }
-
     $key = self::SETTINGS_GROUP . '_' . $key;
 
     if (isset($this->__settings[$key])) {
@@ -43,7 +42,13 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
   }
 
   public function processTemplate ($key, $data) {
-    $result = $this->getByKey($key);
+    $result = html_entity_decode($this->getByKey($key));
+    $continue_label = $this->getByKey('continue_label');
+
+    if (trim($continue_label) !== '') {
+      $continue_css_classes = $this->getByKey('continue_css_classes');
+      $data['continue_btn'] = '<a class="popup-modal-dismiss ' . $continue_css_classes . '" href="#">' . $continue_label . '</a>';
+    }
 
     foreach ($data as $variable => $value) {
       $result = str_replace('{{ ' . $variable . ' }}', $value, $result);
@@ -53,13 +58,11 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
   }
 
   public function getModalTitle ($data) {
-    $title = $this->getByKey('foc_add2cart_box_title');
-    return $this->processTemplate($title, $data);
+    return $this->processTemplate('title', $data);
   }
 
   public function getModalContent ($data) {
-    $content = $this->getByKey('foc_add2cart_box_content');
-    return $this->processTemplate($content, $data);
+    return $this->processTemplate('content', $data);
   }
 
 }
