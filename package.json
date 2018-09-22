@@ -10,6 +10,8 @@
     "build": "bash pack.sh"
   },
   "dependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-zip": "^4.2.0"
   }
 }
