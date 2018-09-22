@@ -46,12 +46,12 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
     $continue_label = $this->getByKey('continue_label');
 
     if (trim($continue_label) !== '') {
-      $continue_css_classes = $this->getByKey('continue_css_classes');
-      $data['continue_btn'] = '<a class="popup-modal-dismiss ' . $continue_css_classes . '" href="#">' . $continue_label . '</a>';
+      $continue_css_classes = $this->getByKey('continue_css_class');
+      $data['continue_btn'] = '<a class="popup-modal-dismiss ' . $continue_css_classes . '" href="#">' . html_entity_decode($continue_label) . '</a>';
     }
 
     foreach ($data as $variable => $value) {
-      $result = str_replace('{{ ' . $variable . ' }}', $value, $result);
+      $result = str_replace('{{' . $variable . '}}', $value, $result);
     }
 
     return $result;
