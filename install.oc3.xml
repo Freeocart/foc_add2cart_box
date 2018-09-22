@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>foc_addtocart_box</name>
+  <code>foc_addtocart_box</code>
+  <version>2.1.0.0</version>
+  <author>ikenfin</author>
+  <link>http://freeocart.ru</link>
+
+  <file path="catalog/controller/common/header.php">
+    <operation>
+      <search><![CDATA[return $this->load->view('common/header', $data);]]></search>
+      <add position="before"><![CDATA[
+        /* foc_add2cart_box code */
+        $this->load->model('extension/module/foc_add2cart_box');
+
+        // variables for title/content text
+        $foc_add2cart_box_urls = array(
+          'site_name' => $this->config->get('config_name'),
+          'site_logo' => $data['logo'],
+          'site_phone' => $this->config->get('config_telephone'),
+          'url_cart' => $this->url->link('checkout/cart'),
+          'url_checkout' => $this->url->link('checkout/checkout'),
+          'url_history' => $this->url->link('account/order'),
+          'url_wishlist' => $this->url->link('account/wishlist'),
+          'url_voucher' => $this->url->link('account/voucher'),
+          'url_contact' => $this->url->link('information/contact'),
+          'url_manufacturer' => $this->url->link('product/manufacturer'),
+          'url_specials' => $this->url->link('product/special'),
+          'url_home' => $this->url->link('common/home')
+        );
+
+        $data['foc_add2cart_box_title'] = $this->model_extension_module_foc_add2cart_box->getModalTitle($foc_add2cart_box_urls);
+        $data['foc_add2cart_box_content'] = $this->model_extension_module_foc_add2cart_box->getModalContent($foc_add2cart_box_urls);
+
+        $data['foc_add2cart_box_autoclose_time'] = $this->model_extension_module_foc_add2cart_box->getAutocloseTime();
+
+        $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+        $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
+
+        $data['styles'] = $this->document->getStyles();
+        $data['scripts'] = $this->document->getScripts();
+        /* end foc_add2cart_box code */
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="catalog/view/theme/*/template/common/header.twig">
+    <operation>
+      <search><![CDATA[<body]]></search>
+      <add position="after"><![CDATA[
+      {% if foc_add2cart_box_title %}
+        <style>
+          .foc-add2cart-box-popup {
+            position: relative;
+            background: #FFF;
+            padding: 20px;
+            width:auto;
+            max-width: 500px;
+            margin: 20px auto;
+          }
+        </style>
+        <div id="foc_add2cart_box" class="foc-add2cart-box-popup white-popup mfp-hide">
+          <h1>{{ foc_add2cart_box_title }}</h1>
+          {{ foc_add2cart_box_content }}
+        </div>
+        <script>
+        $(function () {
+          $(document).on('click', '.popup-modal-dismiss', function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+          });
+          window.foc_add2cart_box_open_modal = function () {
+            $.magnificPopup.open({
+              items: {
+                type:'inline',
+                src:'#foc_add2cart_box'
+              }
+            });
+            {% if foc_add2cart_box_autoclose_time > 0 %}
+              setTimeout($.magnificPopup.close, {{ foc_add2cart_box_autoclose_time * 1000 }});
+            {% endif %}
+          }
+        });
+        </script>
+      {% endif %}
+      ]]></add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[</head>]]></search>
+      <add position="before"><![CDATA[
+      <script>
+      window.cart.add = function (product_id, quantity) {
+        $.ajax({
+          url: 'index.php?route=checkout/cart/add',
+          type: 'post',
+          data: 'product_id=' + product_id + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
+          dataType: 'json',
+          beforeSend: function() {
+            $('#cart > button').button('loading');
+          },
+          complete: function() {
+            $('#cart > button').button('reset');
+          },
+          success: function(json) {
+            $('.alert, .text-danger').remove();
+
+            if (json['redirect']) {
+              location = json['redirect'];
+            }
+
+            if (json['success']) {
+              $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+              // Need to set timeout otherwise it wont update the total
+              setTimeout(function () {
+                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+                $('#total').text(parseInt(json['total']));
+              }, 100);
+
+              window.foc_add2cart_box_open_modal();
+              //$('html, body').animate({ scrollTop: 0 }, 'slow');
+
+              $('#cart > ul').load('index.php?route=common/cart/info ul li');
+            }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+      </script>
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="catalog/view/theme/*/template/product/product.tpl">
+    <operation>
+      <search><![CDATA[$('html, body').animate({ scrollTop: 0 }, 'slow');]]></search>
+      <add position="replace"><![CDATA[
+        window.foc_add2cart_box_open_modal();
+      ]]></add>
+    </operation>
+  </file>
+</modification>
