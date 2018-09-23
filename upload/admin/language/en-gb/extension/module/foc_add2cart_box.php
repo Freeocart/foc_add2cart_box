@@ -1,6 +1,8 @@
 <?php
 $_['heading_title'] = 'FOC: Add to cart modal box';
 
+$_['entry_status'] = 'Status';
+
 $_['text_extension'] = 'Extensions';
 
 $_['label_foc_add2cart_box_title'] = 'Modal title';

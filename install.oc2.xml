@@ -13,32 +13,36 @@
         /* foc_add2cart_box code */
         $this->load->model('extension/module/foc_add2cart_box');
 
-        // variables for title/content text
-        $foc_add2cart_box_urls = array(
-          'site_name' => $this->config->get('config_name'),
-          'site_logo' => $data['logo'],
-          'site_phone' => $this->config->get('config_telephone'),
-          'url_cart' => $this->url->link('checkout/cart'),
-          'url_checkout' => $this->url->link('checkout/checkout'),
-          'url_history' => $this->url->link('account/order'),
-          'url_wishlist' => $this->url->link('account/wishlist'),
-          'url_voucher' => $this->url->link('account/voucher'),
-          'url_contact' => $this->url->link('information/contact'),
-          'url_manufacturer' => $this->url->link('product/manufacturer'),
-          'url_specials' => $this->url->link('product/special'),
-          'url_home' => $this->url->link('common/home')
-        );
+        $data['foc_add2cart_box_enabled'] = $this->model_extension_module_foc_add2cart_box->isEnabled();
 
-        $data['foc_add2cart_box_title'] = $this->model_extension_module_foc_add2cart_box->getModalTitle($foc_add2cart_box_urls);
-        $data['foc_add2cart_box_content'] = $this->model_extension_module_foc_add2cart_box->getModalContent($foc_add2cart_box_urls);
+        if ($data['foc_add2cart_box_enabled']) {
+          // variables for title/content text
+          $foc_add2cart_box_urls = array(
+            'site_name' => $this->config->get('config_name'),
+            'site_logo' => $data['logo'],
+            'site_phone' => $this->config->get('config_telephone'),
+            'url_cart' => $this->url->link('checkout/cart'),
+            'url_checkout' => $this->url->link('checkout/checkout'),
+            'url_history' => $this->url->link('account/order'),
+            'url_wishlist' => $this->url->link('account/wishlist'),
+            'url_voucher' => $this->url->link('account/voucher'),
+            'url_contact' => $this->url->link('information/contact'),
+            'url_manufacturer' => $this->url->link('product/manufacturer'),
+            'url_specials' => $this->url->link('product/special'),
+            'url_home' => $this->url->link('common/home')
+          );
 
-        $data['foc_add2cart_box_autoclose_time'] = $this->model_extension_module_foc_add2cart_box->getAutocloseTime();
+          $data['foc_add2cart_box_title'] = $this->model_extension_module_foc_add2cart_box->getModalTitle($foc_add2cart_box_urls);
+          $data['foc_add2cart_box_content'] = $this->model_extension_module_foc_add2cart_box->getModalContent($foc_add2cart_box_urls);
 
-        $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
+          $data['foc_add2cart_box_autoclose_time'] = $this->model_extension_module_foc_add2cart_box->getAutocloseTime();
 
-        $data['styles'] = $this->document->getStyles();
-        $data['scripts'] = $this->document->getScripts();
+          $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
+          $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
+
+          $data['styles'] = $this->document->getStyles();
+          $data['scripts'] = $this->document->getScripts();
+        }
         /* end foc_add2cart_box code */
       ]]></add>
     </operation>
@@ -48,7 +52,7 @@
     <operation>
       <search><![CDATA[<body]]></search>
       <add position="after"><![CDATA[
-      <?php if (isset($foc_add2cart_box_title) && $foc_add2cart_box_title) : ?>
+      <?php if ($foc_add2cart_box_enabled) : ?>
         <style>
           .foc-add2cart-box-popup {
             position: relative;
@@ -60,7 +64,9 @@
           }
         </style>
         <div id="foc_add2cart_box" class="foc-add2cart-box-popup white-popup mfp-hide">
+          <?php if ($foc_add2cart_box_title) : ?>
           <h1><?php echo $foc_add2cart_box_title; ?></h1>
+          <?php endif; ?>
           <?php echo $foc_add2cart_box_content; ?>
         </div>
         <script>
@@ -83,6 +89,12 @@
           }
         });
         </script>
+      <?php else : ?>
+      <script>
+      window.foc_add2cart_box_open_modal = function () {
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+      }
+      </script>
       <?php endif; ?>
       ]]></add>
     </operation>
@@ -90,6 +102,7 @@
     <operation>
       <search><![CDATA[</head>]]></search>
       <add position="before"><![CDATA[
+      <?php if ($foc_add2cart_box_enabled) : ?>
       <script>
       window.cart.add = function (product_id, quantity) {
         $.ajax({
@@ -131,6 +144,7 @@
         });
       }
       </script>
+      <?php endif; ?>
       ]]></add>
     </operation>
   </file>

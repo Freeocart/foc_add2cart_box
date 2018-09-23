@@ -53,6 +53,10 @@ class ControllerExtensionModuleFocAdd2cartBox extends Controller {
 		$data['button_cancel'] = $this->language->get('cancel');
 		$data['button_save'] = $this->language->get('save');
 
+		$data['text_enabled'] = $this->language->get('text_enabled');
+		$data['text_disabled'] = $this->language->get('text_disabled');
+		$data['entry_status'] = $this->language->get('entry_status');
+
 		$data['fa2cb_settings'] = $this->model_extension_module_foc_add2cart_box->getSettings();
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {

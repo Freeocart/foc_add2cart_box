@@ -15,7 +15,8 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
       self::SETTINGS_GROUP . '_content' => '',
       self::SETTINGS_GROUP . '_continue_label' => '',
       self::SETTINGS_GROUP . '_continue_css_class' => '',
-      self::SETTINGS_GROUP . '_autoclose_time' => 0
+      self::SETTINGS_GROUP . '_autoclose_time' => 0,
+      self::SETTINGS_GROUP . '_status' => 0
     );
   }
 

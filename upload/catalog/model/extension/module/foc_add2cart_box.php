@@ -69,4 +69,8 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
     return $this->getByKey('autoclose_time');
   }
 
+  public function isEnabled () {
+    return (bool) $this->getByKey('status');
+  }
+
 }
