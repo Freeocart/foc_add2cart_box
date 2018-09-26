@@ -18,7 +18,7 @@ $_['foc_add2cart_box_info_tab_content'] = '
   This module is licensed under GNU GPLv3, part of <a href="http://freeocart.ru" target="_blank">freeocart</a> project
 </p>
 <p>
-  If you have any questions, or you need a help with install/setup - please <a href="mailto:foca2c_support_en@freeocart.ru">email me</a>!
+  If you have any questions, or you need a help with install/setup - please <a href="mailto:foca2c-support-en@freeocart.ru">email me</a>!
 </p>
 <hr>
 <h3>How i can help</h3>

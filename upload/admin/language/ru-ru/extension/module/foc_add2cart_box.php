@@ -18,7 +18,7 @@ $_['foc_add2cart_box_info_tab_content'] = '
   Модуль является частью проекта <a href="http://freeocart.ru" target="_blank">freeocart</a> и распространяется под лицензией GNU GPLv3.
 </p>
 <p>
-  Если у вас возникли вопросы по работе модуля, или сложности с установкой/настройкой, то вы можете связаться со мной по e-mail: <a href="mailto:foca2c_support@freeocart.ru">foca2c_support@freeocart.ru</a>.
+  Если у вас возникли вопросы по работе модуля, или сложности с установкой/настройкой, то вы можете связаться со мной по e-mail: <a href="mailto:foca2c-support@freeocart.ru">foca2c-support@freeocart.ru</a>.
 </p>
 <hr>
 <h3>Помощь проекту</h3>
