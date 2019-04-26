@@ -51,7 +51,7 @@ class ModelExtensionModuleFocAdd2cartBox extends Model {
     }
 
     foreach ($data as $variable => $value) {
-      $result = preg_replace('/\{\{\s*' . preg_quote($variable) . '\s*\}\}/', $value, $result);
+      $result = preg_replace('/\{\{\s?' . preg_quote($variable) . '\s?\}\}/', $value, $result);
     }
 
     return $result;
