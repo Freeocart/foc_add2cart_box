@@ -1,11 +1,14 @@
 # FOC Add2Cart box
 
-Module replaces default opencart add to cart notification and scroll to up script with modal window, that you can customize.
+Module replaces default opencart add to cart notification and scroll to up script with modal window. You can customize modal content with your own template.
 
-There are bunch of template variables, you can use in your templates:
+Templates uses simple variable interpolation, using format: `{{ variableName }} or {{variableName}}`
+
+There are bunch of builtin template variables, you can use in your templates:
 
 |variable|description|
 |---|---|
+|continue_btn|Will be replaced with customizable continue button|
 |site_name|Site name|
 |site_logo|Site logo|
 |site_phone|Site phone|
@@ -21,7 +24,7 @@ There are bunch of template variables, you can use in your templates:
 
 ### Custom animation
 
-You can use your own animations for modal window via css transitions.
+You can use your own animations for modal window with css transitions.
 
 **Zoom in/out example:**
 
@@ -51,4 +54,4 @@ You can use your own animations for modal window via css transitions.
 }
 ```
 
-Also, please check other animation examples by Dmitry Semenov [here](https://codepen.io/dimsemenov/pen/GAIkt)
+Also, please check other animation examples by Dmitry Semenov [here](https://codepen.io/dimsemenov/pen/GAIkt). You can easily use any of them to customize modal look and feel.
