@@ -2,7 +2,11 @@
 
 Module replaces default opencart add to cart notification and scroll to up script with modal window. You can customize modal content with your own template.
 
+![Modal window example](./preview.png)
+
 Templates uses simple variable interpolation, using format: `{{ variableName }} or {{variableName}}`
+
+### Builtin variables
 
 There are bunch of builtin template variables, you can use in your templates:
 
