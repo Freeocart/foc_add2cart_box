@@ -4,13 +4,13 @@ const gulp = require('gulp'),
 
 const NAME = 'foc_add2cart_box';
 
-gulp.task('mktest', () => {
-  gulp.src('./upload/**')
-      .pipe(gulp.dest('../oc2/'));
-});
+function copyToTest () {
+  return gulp.src('./upload/**')
+    .pipe(gulp.dest('../oc2/'));
+}
 
-gulp.task('build-oc2', () => {
-  gulp
+function buildOc2 () {
+  return gulp
     .src([
       './install.oc2.xml',
       './upload/**/controller/**',
@@ -25,16 +25,16 @@ gulp.task('build-oc2', () => {
     }))
     .pipe(zip(`${NAME}-oc2.ocmod.zip`))
     .pipe(gulp.dest('./'))
-});
+}
 
-gulp.task('build-oc3', () => {
-  gulp.src([
-    './install.oc3.xml',
-    './upload/**/controller/**',
-    './upload/**/model/**',
-    './upload/**/language/**',
-    './upload/**/view/**/*.twig'
-  ], {base: '.'})
+function buildOc3 () {
+  return gulp.src([
+      './install.oc3.xml',
+      './upload/**/controller/**',
+      './upload/**/model/**',
+      './upload/**/language/**',
+      './upload/**/view/**/*.twig'
+    ], {base: '.'})
     .pipe(rename((file) => {
       if (file.dirname == '.' && file.extname == '.xml') {
         file.basename = 'install'
@@ -42,12 +42,14 @@ gulp.task('build-oc3', () => {
     }))
     .pipe(zip(`${NAME}-oc3.ocmod.zip`))
     .pipe(gulp.dest('./'))
-});
+}
 
-gulp.task('build-all', ['build-oc2', 'build-oc3'], () => {});
+function startWatcher () {
+  return gulp.watch('./upload/**', copyToTest)
+}
 
-gulp.task('default', ['mktest'], () => {
-  gulp.watch('./upload/**', () => {
-    gulp.start('mktest');
-  });
-});
+gulp.task('mktest', copyToTest);
+gulp.task('build-oc2', buildOc2);
+gulp.task('build-oc3', buildOc3);
+gulp.task('build-all', gulp.parallel(buildOc2, buildOc3))
+gulp.task('default', gulp.series(copyToTest, startWatcher));
