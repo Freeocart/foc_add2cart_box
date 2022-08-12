@@ -15,10 +15,10 @@ $_['foc_add2cart_box_info_tab_name'] = 'Information';
 $_['foc_add2cart_box_info_tab_title'] = 'About';
 $_['foc_add2cart_box_info_tab_content'] = '
 <p>
-  This module is licensed under GNU GPLv3, part of <a href="http://freeocart.ru" target="_blank">freeocart</a> project
+  This module is licensed under GNU GPLv3, part of <a href="https://freeocart.ikfi.ru" target="_blank">freeocart</a> project
 </p>
 <p>
-  If you have any questions, or you need a help with install/setup - please <a href="mailto:foca2c-support-en@freeocart.ru">email me</a>!
+  If you have any questions, or you need a help with install/setup - please <a href="mailto:freeocart@ikfi.ru">email me</a>!
 </p>
 <hr>
 <h3>How i can help</h3>
@@ -28,7 +28,7 @@ $_['foc_add2cart_box_info_tab_content'] = '
 <ul>
   <li>Found a bug? Please, report on github (issues)</li>
   <li>Have interesting modifications? Send me pull request on github!</li>
-  <li>You are good translater? Please <a href="mailto:foca2c_support_en@freeocart.ru">email me</a></li>
+  <li>You are good translater? Please <a href="mailto:freeocart@ikfi.ru">email me</a></li>
 </ul>
 ';
 
